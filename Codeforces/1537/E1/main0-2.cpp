@@ -9,28 +9,23 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+// 本番終了後、自力考察で書き直し、AC
+
 int main() {
 	int n, k;
 	cin >> n >> k;
 	string s;
 	cin >> s;
-	int id = -1;
-	rep3(i, 1, min(n,k)) {
-		int len = min(n-i, i);
-		if (s.substr(0,len) < s.substr(i,len)) {
-			id = i;
-			break;
+	string res(k, (char)(s.front()));
+	rep3(i, 2, min(n,k)+1) {
+		string tar, t0 = s.substr(0, i);
+		int len = 0;
+		while (len < k) {
+			tar += t0;
+			len += i;
 		}
+		res = min(res, tar.substr(0, k));
 	}
-	if (id == -1) id = n;
-	string tar = s.substr(0, id);
-	int len = 0;
-	string t;
-	while (len < k) {
-		t += tar;
-		len += id;
-	}
-	t = t.substr(0, k);
-	cout << t << endl;
+	cout << res << endl;
 	return 0;
 }
