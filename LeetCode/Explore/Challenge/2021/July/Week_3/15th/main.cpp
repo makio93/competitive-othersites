@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// 自力AC
+
 class Solution {
 public:
     int triangleNumber(vector<int>& nums) {
@@ -15,7 +17,3 @@ public:
         return res;
     }
 };
-
-int main() {
-    return 0;
-}

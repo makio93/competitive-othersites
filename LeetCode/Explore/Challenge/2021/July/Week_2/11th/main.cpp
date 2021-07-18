@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// 自力AC
+
 class MedianFinder {
     deque<int> dq;
 public:
@@ -19,14 +21,3 @@ public:
         else return (double)dq[ct];
     }
 };
-
-/**
- * Your MedianFinder object will be instantiated and called as such:
- * MedianFinder* obj = new MedianFinder();
- * obj->addNum(num);
- * double param_2 = obj->findMedian();
- */
-
-int main() {
-    return 0;
-}

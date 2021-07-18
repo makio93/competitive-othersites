@@ -1,7 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Definition for singly-linked list.
+// 自力AC
+
 struct ListNode {
     int val;
     ListNode *next;
@@ -46,8 +47,3 @@ public:
         return head;
     }
 };
-
-int main() {
-    
-    return 0;
-}
