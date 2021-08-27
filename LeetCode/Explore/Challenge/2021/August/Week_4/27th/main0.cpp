@@ -7,7 +7,7 @@ class Solution {
 public:
     int findLUSlength(vector<string>& strs) {
         int n = strs.size();
-        map<string, int> scnt;
+        unordered_map<string, int> scnt;
         for (int i=0; i<n; ++i) scnt[strs[i]]++;
         vector<int> mid;
         for (auto p : scnt) if (p.second == 1) {
@@ -21,10 +21,10 @@ public:
         for (int id : mid) {
             int len = strs[id].length();
             if (res >= len) continue;
-            set<string> rest;
+            unordered_set<string> rest;
             rest.insert("");
             for (int i=0; i<len; ++i) {
-                set<string> rest2;
+                unordered_set<string> rest2;
                 for (string si : rest) {
                     string tar = si + strs[id][i];
                     int li = tar.length();
