@@ -9,21 +9,21 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+// 本番AC
+
 int main() {
 	int t;
 	cin >> t;
 	rep(i1, t) {
-		int n, m, xi, yi;
-		cin >> n >> m >> xi >> yi;
-		int area = 0;
-		if (xi<=n/2 && yi<=m/2) area = 1;
-		if (xi>n-n/2 && yi>m-m/2) area = 1;
-		if (area == 0) {
-			cout << 1 << ' ' << 1 << ' ' << n << ' ' << m << endl;
-		}
-		else {
-			cout << n << ' ' << 1 << ' ' << 1 << ' ' << m << endl;
-		}
+		int n;
+		cin >> n;
+		vector<int> a(n);
+		rep(i, n) cin >> a[i];
+		ll sum = 0;
+		rep(i, n) sum += a[i];
+		if (sum < (ll)(n)) cout << 1 << endl;
+		else if (sum == (ll)(n)) cout << 0 << endl;
+		else cout << (sum-(ll)(n)) << endl;
 	}
 	return 0;
 }
