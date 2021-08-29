@@ -20,7 +20,7 @@ void zcalc(string& s, vector<int>& z) {
         z[l] = r;
         int ki = 1;
         while (ki < r) {
-            if (z[ki] > r-ki) break;
+            if (z[ki] >= r-ki) break;
             z[l+ki] = z[ki];
             ++ki;
         }
