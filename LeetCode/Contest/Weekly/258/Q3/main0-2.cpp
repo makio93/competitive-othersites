@@ -1,14 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 本番WA
+// 本番終了後,自力AC
 
 class Solution {
 public:
     int maxProduct(string s) {
         int n = s.length(), res = 0;
         unordered_set<string> parind, noparind;
-        for (int i=0; i<(1<<n); ++i) {
+        for (int i=1; i<(1<<n)-1; ++i) {
             string t1, t2;
             for (int j=0; j<n; ++j) {
                 if ((i>>j)&1) t1 += s[j];
@@ -31,28 +31,33 @@ public:
                 continue;
             }
             parind.insert(t1);
-            int len = (int)(t2.length()), mval = -1;
-            if (parind.find(t2) != parind.end()) mval = len;
-            else {
-                for (int i1=len-1; i1>=1; --i1) {
-                    for (int i2=0; i2+i1<len; ++i2) {
-                        int l2 = i2, r2 = l2 + i1;
-                        bool ok2 = true;
-                        while (l2 < r2) {
-                            if (t2[l2] != t2[r2]) {
-                                ok2 = false;
-                                break;
-                            }
-                            ++l2; --r2;
-                        }
-                        if (ok2) {
-                            mval = max(mval, i1+1);
+            int len = (int)(t2.length());
+            if (parind.find(t2) != parind.end()) {
+                res = max(res, (int)(t1.length())*len);
+                continue;
+            }
+            int mval = 1;
+            for (int j=1; j<(1<<len)-1; ++j) {
+                string t3;
+                for (int j2=0; j2<len; ++j2) if ((j>>j2)&1) t3 += t2[j2];
+                int len2 = t3.length();
+                if (parind.find(t3) != parind.end()) mval = max(mval, len2);
+                else {
+                    bool ok2 = true;
+                    int l2 = 0, r2 = len2 - 1;
+                    while (l2 < r2) {
+                        if (t3[l2] != t3[r2]) {
+                            ok2 = false;
                             break;
                         }
+                        ++l2; --r2;
                     }
-                    if (mval != -1) break;
+                    if (ok2) {
+                        mval = max(mval, len2);
+                        parind.insert(t3);
+                    }
+                    else noparind.insert(t3);
                 }
-                if (mval == -1) mval = 1;
             }
             res = max(res, (int)(t1.length())*mval);
         }
