@@ -1,7 +1,7 @@
+// 本番WA
+
 #include <iostream>
 using namespace std;
-
-// 本番WA
 
 using ll = long long;
 
