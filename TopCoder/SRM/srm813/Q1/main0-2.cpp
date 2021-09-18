@@ -1,4 +1,4 @@
-// 本番WA
+// 本番終了後,自力AC
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -26,12 +26,14 @@ public:
                     if (bulbStates[id] == 'X') {
                         res += 'S';
                         ++bcnt;
+                        bulbStates[id] = 'O';
                     }
                 }
                 else {
                     if (bulbStates[id] == 'O') {
                         res += 'S';
                         --bcnt;
+                        bulbStates[id] = 'X';
                     }
                 }
                 if (bcnt == goalCount) break;
