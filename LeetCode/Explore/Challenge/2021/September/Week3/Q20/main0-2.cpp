@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 自力AC1
+// 自力AC2
 
 class Solution {
 public:
@@ -29,7 +29,6 @@ public:
             for (int i=1; i<3; ++i) if (tval != board[i][2-i]) tval = 2;
             if (tval!=2 && tval!=-1) return (string)((tval == 0) ? "A" : "B");
         }
-        for (int i=0; i<3; ++i) for (int j=0; j<3; ++j) if (board[i][j] == -1) return (string)("Pending");
-        return (string)("Draw");
+        return (string)((n < 3*3) ? "Pending" : "Draw");
     }
 };
