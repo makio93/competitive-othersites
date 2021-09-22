@@ -9,6 +9,8 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+// 本番AC
+
 const string s1 = "()", s2 = "(())", t2 = "()()";
 
 int main() {
