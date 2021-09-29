@@ -10,7 +10,7 @@ struct ListNode {
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-// 自力AC
+// 解説AC,解法1,Space:O(N+k)
 
 class Solution {
 public:
@@ -28,10 +28,15 @@ public:
             res[i] = p;
             int len = (i < r) ? q+1 : q;
             if (len == 0) continue;
-            for (int j=0; j+1<len; ++j) p = p->next;
-            auto tmp = p->next;
-            p->next = nullptr;
-            p = tmp;
+            res[i] = new ListNode(p->val);
+            auto tail = res[i];
+            p = p->next;
+            for (int j=1; j<len; ++j) {
+                tail->next = new ListNode(p->val);
+                tail = tail->next;
+                p = p->next;
+            }
+            tail->next = nullptr;
         }
         return res;
     }
