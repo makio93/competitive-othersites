@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 自力AC
+// 自力AC,O(n^2)解法
 
 class Solution {
 public:
