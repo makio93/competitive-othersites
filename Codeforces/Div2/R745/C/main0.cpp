@@ -30,9 +30,11 @@ int main() {
 			val += lval + rval;
 			res = min(res, val);
 			int rid = 3;
+			/*
 			rep(j, m-3) {
 				while ()
 			}
+			*/
 		}
 	}
 	return 0;
