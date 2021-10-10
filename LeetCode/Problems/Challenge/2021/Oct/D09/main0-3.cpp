@@ -1,0 +1,85 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+// 自力AC,期間終了後,改善の余地あり
+
+class Solution {
+    struct Node {
+        char c;
+        bool fin;
+        unordered_map<char, Node*> nextNodes;
+        Node() : c('*'), fin(false), nextNodes() {}
+        Node(char c) : c(c), fin(false), nextNodes() {}
+        Node* nextNode(char t) {
+            if (nextNodes.find(t) != nextNodes.end()) return nextNodes[t];
+            else return (nextNodes[t] = new Node(t));
+        }
+        Node* searchNode(char t) {
+            if (nextNodes.find(t) != nextNodes.end()) return nextNodes[t];
+            else return NULL;
+        }
+    };
+    class Trie {
+        Node *head;
+    public:
+        Trie() { head = new Node(); }
+        Node* getHead() { return head; }
+        void insert(string word) {
+            auto p = head;
+            for (char ci : word) p = p->nextNode(ci);
+            p->fin = true;
+        }
+        bool search(string word) {
+            auto p = head;
+            for (char ci : word) {
+                p = p->searchNode(ci);
+                if (p == NULL) return false;
+            }
+            return p->fin;
+        }
+        bool startsWith(string prefix) {
+            auto p = head;
+            for (char ci : prefix) {
+                p = p->searchNode(ci);
+                if (p == NULL) return false;
+            }
+            return true;
+        }
+    };
+public:
+    vector<string> findWords(vector<vector<char>>& board, vector<string>& words) {
+        int m = board.size(), n = board.front().size(), wl = words.size();
+        Trie tr;
+        for (int i=0; i<wl; ++i) tr.insert(words[i]);
+        unordered_set<string> sres;
+        for (int i=0; i<m; ++i) for (int j=0; j<n; ++j) {
+            vector<vector<bool>> visited(m, vector<bool>(n));
+            function<void(int,int,string&,Node*)> dfs = [&](int y, int x, string& str, Node* node) {
+                visited[y][x] = true;
+                auto cnode = node->searchNode(board[y][x]);
+                if (cnode != (Node*)NULL) {
+                    str.push_back(board[y][x]);
+                    if (cnode->fin) {
+                        sres.insert(str);
+                        cnode->fin = false;
+                    }
+                    if (str.length() < 10U) {
+                        const vector<int> dy = { -1, 0, 1, 0 }, dx = { 0, 1, 0, -1 };
+                        for (int i2=0; i2<4; ++i2) {
+                            int ny = y + dy[i2], nx = x + dx[i2];
+                            if (ny<0 || ny>=m || nx<0 || nx>=n) continue;
+                            if (visited[ny][nx]) continue;
+                            dfs(ny, nx, str, cnode);
+                        }
+                    }
+                    str.pop_back();
+                }
+                visited[y][x] = false;
+            };
+            string sstr = "";
+            dfs(i, j, sstr, tr.getHead());
+        }
+        vector<string> res(sres.begin(), sres.end());
+        return res;
+    }
+};
