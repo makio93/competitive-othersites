@@ -1,4 +1,4 @@
-// 解説AC1,O(NlogN)解,map<ll,int>
+// 解説AC2,O(N)解,deque
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -22,15 +22,13 @@ public:
         }
         vector<ll> dp(N+1);
         dp[0] = T[0];
-        map<ll, int> tvals;
-        tvals[dp[0]]++;
+        deque<ll> tvals; // '>='で書きたければpair<ll, int>型で持つ
+        tvals.push_back(dp[0]);
         rep3(i, 1, N+1) {
-            if (i-J-1 >= 0) {
-                tvals[dp[i-J-1]]--;
-                if (tvals[dp[i-J-1]] == 0) tvals.erase(dp[i-J-1]);
-            }
-            dp[i] = tvals.begin()->first + T[i];
-            tvals[dp[i]]++;
+            if (i-J-1 >= 0) { if (dp[i-J-1] == tvals.front()) tvals.pop_front(); }
+            dp[i] = tvals.front() + T[i];
+            while (!tvals.empty() && tvals.back()>dp[i]) tvals.pop_back(); // '>='にするとWAになる
+            tvals.push_back(dp[i]);
         }
         return dp[N];
     }

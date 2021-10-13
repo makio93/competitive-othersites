@@ -1,4 +1,4 @@
-// 解説AC2,O(N)解
+// 解説AC2,O(N)解,参考解
 
 #include <bits/stdc++.h>
 using namespace std;
