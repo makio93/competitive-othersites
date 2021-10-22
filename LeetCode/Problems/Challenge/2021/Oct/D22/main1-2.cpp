@@ -9,8 +9,7 @@ public:
         int n = s.length();
         unordered_map<char, int> ccnt;
         for (char ci : s) ccnt[ci]++;
-        sort(s.begin(), s.end(), [&](char a, char b){ return (ccnt[a]>ccnt[b] || (ccnt[a]==ccnt[b]&&a<b)); }); 
-            // a,bをswapして,常に真偽が反転する必要がある
+        sort(s.begin(), s.end(), [&](char a, char b){ return (ccnt[a]>ccnt[b] || (ccnt[a]==ccnt[b]&&a<b)); });
         return s;
     }
 };
