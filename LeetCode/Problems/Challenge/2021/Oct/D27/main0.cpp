@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 自力AC
+// 自力AC,Time:O(n),Space:O(1)解法
 
 class Solution {
 public:
