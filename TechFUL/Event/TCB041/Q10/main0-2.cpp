@@ -1,9 +1,9 @@
+// 本番WA2
+
 #include <iostream>
 #include <vector>
 using namespace std;
 using ll = long long;
-
-// 本番WA2
 
 const ll INF = (ll)(-1e18);
 
