@@ -43,6 +43,8 @@ int main() {
 			sort(all(lb));
 			sort(all(ra));
 			sort(all(rb));
+			// 以下，未完成
+			/*
 			bool ok2 = true;
 			for (auto pi : lcnt.rbegin()->second) if (rcnt.rbegin()->second.find(pi.first) != rcnt.rbegin()->second.end()) {
 				ok2 = false;
@@ -65,6 +67,7 @@ int main() {
 					if (rcnt[a[i][j+1]].empty()) rcnt.erase(a[i][j+1]);
 				}
 			}
+			*/
 		}
 		if (ok) {
 			cout << "YES" << endl;
