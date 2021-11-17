@@ -1,7 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+<<<<<<< Updated upstream
 // 本番AC
+=======
+// バチャ本番AC
+>>>>>>> Stashed changes
 
 class Solution {
     int INF = (int)(1.1e9);
