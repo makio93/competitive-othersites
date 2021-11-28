@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// 本番AC
+
 class Solution {
 public:
     int countWords(vector<string>& words1, vector<string>& words2) {

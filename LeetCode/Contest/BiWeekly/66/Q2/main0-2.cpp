@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// 本番WA
+
 class Solution {
 public:
     int minimumBuckets(string street) {
