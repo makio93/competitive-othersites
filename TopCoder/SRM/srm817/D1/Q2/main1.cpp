@@ -9,6 +9,8 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
+// 解説実装,未完成(バグあり)
+
 const ll INF = (ll)(1e18) + 2;
 class IntrospectiveNumbers {
     vector<vector<ll>> choose;
