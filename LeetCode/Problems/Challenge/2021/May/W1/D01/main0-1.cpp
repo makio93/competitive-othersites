@@ -1,25 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 自力TLE
+// 自力WA
 
-class Solution {
-public:
-    int scheduleCourse(vector<vector<int>>& courses) {
-        int n = courses.size();
-        vector<pair<int, int>> lds(n);
-        for (int i=0; i<n; ++i) lds[i] = { courses[i][1], courses[i][0] };
-        sort(lds.begin(), lds.end());
-        map<int, int> st;
-        st[0] = 0;
-        for (int i=0; i<n; ++i) {
-            map<int, int> nst;
-            for (auto itr=st.begin(); itr!=st.end()&&itr->first<=lds[i].first-lds[i].second; ++itr) 
-                nst[itr->first+lds[i].second] = itr->second + 1;
-            for (auto pi : nst) st[pi.first] = max(st[pi.first], pi.second);
+class WordFilter {
+    class TrieNode {
+        int rchs;
+        vector<int> ids;
+        vector<TrieNode*> next;
+    public:
+        TrieNode() : rchs(0), next(26, nullptr), ids(0) {}
+        void add(int id, string& str, int d=0) {
+            int n = str.length();
+            if (d == n) ids.push_back(id);
+            else {
+                int ch = str[d] - 'a', rch = str[n-d-1] - 'a';
+                if (next[ch] == nullptr) next[ch] = new TrieNode();
+                next[ch]->rchs |= (1<<rch);
+                next[ch]->add(id, str, d+1);
+            }
         }
-        int res = 0;
-        for (auto pi : st) res = max(res, pi.second);
-        return res;
+        int search(string& pre, string& suf, int d=0) {
+            int m = pre.length(), n = suf.length();
+            if (this == nullptr) return -1;
+            if (d-1>=0 && d-1<n) {
+                int rch = suf[n-d] - 'a';
+                if (!((rchs>>rch)&1)) return -1;
+            }
+            if (d>=m && d>=n && !ids.empty()) return ids.back();
+            else {
+                int res = -1;
+                if (d < m) {
+                    int ch = pre[d] - 'a';
+                    res = max(res, next[ch]->search(pre, suf, d+1));
+                }
+                else for (int i=0; i<26; ++i) if (next[i] != nullptr) res = max(res, next[i]->search(pre, suf, d+1));
+                return res;
+            }
+        }
+    };
+    TrieNode *root;
+public:
+    WordFilter(vector<string>& words) {
+        int n = words.size();
+        root = new TrieNode();
+        for (int i=0; i<n; ++i) root->add(i, words[i]);
+    }    
+    int f(string prefix, string suffix) {
+        return root->search(prefix, suffix);
     }
 };
+
+/**
+ * Your WordFilter object will be instantiated and called as such:
+ * WordFilter* obj = new WordFilter(words);
+ * int param_1 = obj->f(prefix,suffix);
+ */

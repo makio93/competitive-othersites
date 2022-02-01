@@ -1,19 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 自力TLE
+// 自力AC
 
 class TrieNode {
     vector<int> ids;
-    vector<TrieNode*> next;
+    unordered_map<int, TrieNode*> next;
 public:
-    TrieNode() : ids(0), next(26*26) {}
+    TrieNode() : ids(0), next() {}
     void add(int id, string& str, int d=0) {
         int n = str.length();
         if (d == n) ids.push_back(id);
         else {
             int ch = (str[d]-'a') * 26 + (str[n-d-1]-'a');
-            if (next[ch] == nullptr) next[ch] = new TrieNode();
+            if (next.find(ch) == next.end()) next[ch] = new TrieNode();
             next[ch]->add(id, str, d+1);
         }
     }
@@ -25,11 +25,11 @@ public:
         if (d < n) rch = suf[n-d-1] - 'a';
         if (tch!=-1 && rch!=-1) {
             int ch = tch * 26 + rch;
-            if (next[ch] != nullptr) res = max(res, next[ch]->search(pre, suf, d+1));
+            if (next.find(ch) != next.end()) res = max(res, next[ch]->search(pre, suf, d+1));
         }
-        else if (tch != -1) { for (int i=0; i<26; ++i) if (next[tch*26+i] != nullptr) res = max(res, next[tch*26+i]->search(pre, suf, d+1)); }
-        else if (rch != -1) { for (int i=0; i<26; ++i) if (next[i*26+rch] != nullptr) res = max(res, next[i*26+rch]->search(pre, suf, d+1)); }
-        else { for (int i=0; i<26; ++i) for (int j=0; j<26; ++j) if (next[i*26+j] != nullptr) res = max(res, next[i*26+j]->search(pre, suf, d+1)); }
+        else if (tch != -1) { for (int i=0; i<26; ++i) if (next.find(tch*26+i) != next.end()) res = max(res, next[tch*26+i]->search(pre, suf, d+1)); }
+        else if (rch != -1) { for (int i=0; i<26; ++i) if (next.find(i*26+rch) != next.end()) res = max(res, next[i*26+rch]->search(pre, suf, d+1)); }
+        else { for (auto pi : next) res = max(res, pi.second->search(pre, suf, d+1)); }
         return res;
     }
 };
