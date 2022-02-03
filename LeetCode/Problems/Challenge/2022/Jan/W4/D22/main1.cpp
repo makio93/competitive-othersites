@@ -1,18 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 解説AC
+// 解説AC1,メモ化再帰
 
 class Solution {
+    unordered_map<int, bool> memo;
 public:
     bool winnerSquareGame(int n) {
-        vector<bool> dp(n+1);
-        for (int i=1; i<=n; ++i) for (int j=1; j*j<=i; ++j) {
-            if (!dp[i-j*j]) {
-                dp[i] = true;
-                break;
-            }
+        if (memo.find(n) != memo.end()) return memo[n];
+        if (n == 0) return memo[n] = false;
+        else if (n == 1) return memo[n] = true;
+        else {
+            for (int i=1; i*i<=n; ++i) if (!winnerSquareGame(n-i*i)) return memo[n] = true;
+            return memo[n] = false;
         }
-        return dp[n];
     }
 };
