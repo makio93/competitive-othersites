@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 自力AC
+// 自力AC2,メモリ削減
 
 class Solution {
 public:
