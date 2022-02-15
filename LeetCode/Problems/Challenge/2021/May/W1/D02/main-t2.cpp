@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// 解説AC1,O(n*res)
+// 解説から,TLE解2
 
 class Solution {
 public:
@@ -12,16 +12,13 @@ public:
         for (int i=0; i<n; ++i) {
             if (rtime+courses[i][0] <= courses[i][1]) {
                 rtime += courses[i][0];
-                courses[res] = courses[i];
                 ++res;
             }
             else {
                 int tid = i;
-                for (int j=0; j<res; ++j) if (courses[j][0] > courses[tid][0]) tid = j;
-                if (tid != i) {
-                    rtime += courses[i][0] - courses[tid][0];
-                    courses[tid] = courses[i];
-                }
+                for (int j=0; j<i; ++j) if (courses[j][0] > courses[tid][0]) tid = j;
+                if (tid != i) rtime += courses[i][0] - courses[tid][0];
+                courses[tid][0] = -1;
             }
         }
         return res;
