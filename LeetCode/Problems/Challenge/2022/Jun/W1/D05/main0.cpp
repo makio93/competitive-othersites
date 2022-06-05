@@ -5,10 +5,10 @@ using namespace std;
 
 class Solution {
 public:
-    vector<vector<string>> solveNQueens(int n) {
+    int totalNQueens(int n) {
         vector<int> ord(n);
         iota(ord.begin(), ord.end(), 0);
-        vector<vector<string>> res;
+        int res = 0;
         do {
             vector<string> vals(n, string(n, '.'));
             for (int i=0; i<n; ++i) vals[i][ord[i]] = 'Q';
@@ -21,7 +21,7 @@ public:
                 }
                 if (!ok) break;
             }
-            if (ok) res.push_back(vals);
+            if (ok) ++res;
         } while (next_permutation(ord.begin(), ord.end()));
         return res;
     }
