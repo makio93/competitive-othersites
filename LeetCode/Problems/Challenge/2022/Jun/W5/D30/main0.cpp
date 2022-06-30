@@ -1,0 +1,16 @@
+// 自力AC
+
+#include <bits/stdc++.h>
+using namespace std;
+
+class Solution {
+public:
+    int minMoves2(vector<int>& nums) {
+        int n = nums.size();
+        sort(nums.begin(), nums.end());
+        int mval = (n%2 == 1) ? nums[n/2] : (nums[n/2-1]+nums[n/2]) / 2;
+        int res = 0;
+        for (int i=0; i<n; ++i) res += abs(nums[i] - mval);
+        return res;
+    }
+};
