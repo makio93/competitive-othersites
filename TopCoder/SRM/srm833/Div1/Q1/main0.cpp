@@ -1,4 +1,4 @@
-// 本番作成
+// 本番AC
 
 #include <bits/stdc++.h>
 using namespace std;
