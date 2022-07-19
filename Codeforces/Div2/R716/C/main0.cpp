@@ -1,3 +1,5 @@
+// 本番WA
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -49,12 +51,19 @@ int main() {
     mint val = 1;
     res.insert(1);
     rep3(i, 2, n) {
-        if (gcd(i,n) != 1) continue;
-        res.insert(i);
+        if (gcd(n,i) == 1) {
+            val *= i;
+            res.insert(i);
+        }
     }
     if (val.x != 1) {
-        ll rval = val.inv().x;
-        res.erase(rval);
+            mint rval = mint(1) / val;
+            rep3r(i, 2, n) if (res.find(i) != res.end()) {
+                if (rval.x == mint(i).x) {
+                    res.erase(i);
+                    break;
+                }
+            }
     }
     int len = res.size(), id = 0;
     cout << len << endl;
