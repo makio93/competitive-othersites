@@ -1,4 +1,4 @@
-// 本番作成,WA
+// 本番,WA
 
 #include <bits/stdc++.h>
 using namespace std;
