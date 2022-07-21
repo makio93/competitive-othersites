@@ -1,4 +1,4 @@
-// 本番WA
+// 終了後,自力,WA
 
 #include <bits/stdc++.h>
 using namespace std;
