@@ -1,7 +1,7 @@
+// 本番AC
+
 #include <bits/stdc++.h>
 using namespace std;
-
-// 本番AC
 
 class Solution {
 public:
