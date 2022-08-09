@@ -1,4 +1,4 @@
-// 
+// 解説AC3
 
 #include <bits/stdc++.h>
 using namespace std;
