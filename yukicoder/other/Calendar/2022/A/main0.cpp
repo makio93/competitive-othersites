@@ -1,4 +1,4 @@
-// 
+// 本番AC
 
 #include <bits/stdc++.h>
 #include <atcoder/all>
@@ -16,6 +16,10 @@ using ll = long long;
 const int INF = (int)(1e9);
 
 int main() {
-
+	int a, b, c, d, e;
+	cin >> a >> b >> c >> d >> e;
+	int res = a - b;
+	if (d-e > 0) res += (d-e) * c;
+	cout << res << endl;
 	return 0;
 }
