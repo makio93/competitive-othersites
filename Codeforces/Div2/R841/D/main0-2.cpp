@@ -1,4 +1,4 @@
-// 自力TLE1
+// 本番TLE2
 
 #include <bits/stdc++.h>
 using namespace std;

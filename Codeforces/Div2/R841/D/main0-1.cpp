@@ -1,4 +1,4 @@
-// 自力TLE1
+// 本番TLE1
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -15,16 +15,16 @@ using ll = long long;
 #pragma GCC optimize("O3")
 #pragma GCC optimize("unroll-loops")
 
-vector<vector<int>> dat((int)(3e6));
 struct SegmentTree {
     int n, m;
+    vector<vector<int>> dat;
     SegmentTree() { init(1, 1); }
     SegmentTree(int n_, int m_) { init(n_, m_); }
     void init(int n_, int m_) {
         n = 1, m = 1;
         while (n < n_) n *= 2;
         while (m < m_) m *= 2;
-        dat.assign(2*n-1, vector<int>(2*m-1, (int)(1e9)));
+        dat = vector<vector<int>>(2*n-1, vector<int>(2*m-1, (int)(1e9)));
     }
     void update(int k1, int k2, int a) {
         k1 += n-1;
@@ -70,13 +70,12 @@ int main() {
     cin.tie(nullptr);
     int t0;
     cin >> t0;
-    SegmentTree st(1, 1);
     rep(i0, t0) {
         int n, m;
         cin >> n >> m;
         vector<vector<int>> a(n, vector<int>(m));
         rep(i, n) rep(j, m) cin >> a[i][j];
-        st.init(n, m);
+        SegmentTree st(n, m);
         rep(i, n) rep(j, m) st.update(i, j, a[i][j]);
         int res = 0;
         rep(i, n) rep(j, m) if (res < min(i,j)+1) {
