@@ -1,7 +1,7 @@
+// 本番WA
+
 #include <bits/stdc++.h>
 using namespace std;
-
-// 本番WA
 
 class LockingTree {
     int n;

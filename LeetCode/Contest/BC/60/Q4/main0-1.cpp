@@ -1,7 +1,7 @@
+// 本番WA
+
 #include <bits/stdc++.h>
 using namespace std;
-
-// 本番WA
 
 class Solution {
     const long long mod = (long long)(1e9) + 7;
