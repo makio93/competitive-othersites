@@ -1,4 +1,4 @@
-// 本番WA2
+// 解説AC
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -11,7 +11,7 @@ using ll = long long;
 #define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
 #define all(x) (x).begin(), (x).end()
 
-const int INF = (int)(1e9);
+const int INF = (int)(2e9);
 
 int main() {
 	ios::sync_with_stdio(false);
@@ -24,21 +24,22 @@ int main() {
 		vector<int> l(n), r(n);
 		rep(i, n) cin >> l[i];
 		rep(i, n) cin >> r[i];
-		int dsum = 0;
-		rep(i, n) dsum += r[i] - l[i] + 1;
-		if (dsum < k) {
-			cout << -1 << endl;
-			continue;
-		}
-		int ncnt = 0, bsum = 0, scnt = 0;
+		int ccnt = 0, ssum = 0, res = INF;
 		rep(i, n) {
-			if (k <= bsum+r[i]-l[i]+1) break;
-			if (r[i]-l[i]+1 == 1) ++scnt;
-			bsum += r[i] - l[i] + 1;
-			++ncnt;
+			if (r[i]-l[i]+1 > 1) ssum += r[i]-l[i]+1;
+			else ++ccnt;
+			if (k > ssum+ccnt) continue;
+			if (k > ssum) {
+				int cval = k - ssum;
+				res = min(res, ((i+1)-ccnt+cval)*2+r[i]);
+			}
+			else {
+				res = min(res, ((i+1)-ccnt)*2+r[i]-(ssum-k));
+				break;
+			}
 		}
-		int sub = (r[ncnt] - l[ncnt] + 1) - (k-bsum), res = (ncnt+1) * 2 + (l[ncnt]-1) + (k-bsum) - min(sub, scnt);
-		cout << res << endl;
+		if (res == INF) cout << -1 << endl;
+		else cout << res << endl;
 	}
 	return 0;
 }
