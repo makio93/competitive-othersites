@@ -16,23 +16,24 @@ struct TreeNode {
 class Solution {
 public:
     int minCameraCover(TreeNode* root) {
-        unordered_set<TreeNode*> seen;
-        seen.insert(nullptr);
+        unordered_set<TreeNode*> covered;
+        covered.insert(nullptr);
         int res = 0;
-        auto dfs = [&](auto dfs, TreeNode* node, TreeNode* pnode=nullptr) -> void {
-            if (node == nullptr) return;
-            dfs(dfs, node->left, node);
-            dfs(dfs, node->right, node);
-            if ((pnode==nullptr&&seen.find(node)==seen.end()) || 
-                seen.find(node->left)==seen.end() || seen.find(node->right)==seen.end()) {
-                seen.insert(node);
-                seen.insert(node->left);
-                seen.insert(node->right);
-                seen.insert(pnode);
+        function<void(TreeNode*,TreeNode*)> dfs = [&](TreeNode* vnode, TreeNode* pnode) {
+            if (vnode == nullptr) return;
+            dfs(vnode->left, vnode);
+            dfs(vnode->right, vnode);
+            if ((pnode==nullptr && covered.find(vnode)==covered.end()) || 
+                    covered.find(vnode->left) == covered.end() || 
+                    covered.find(vnode->right) == covered.end()) {
                 ++res;
+                covered.insert(vnode);
+                covered.insert(pnode);
+                covered.insert(vnode->left);
+                covered.insert(vnode->right);
             }
         };
-        dfs(dfs, root);
+        dfs(root, nullptr);
         return res;
     }
 };

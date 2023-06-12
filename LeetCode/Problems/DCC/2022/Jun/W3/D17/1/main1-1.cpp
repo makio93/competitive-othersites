@@ -17,14 +17,16 @@ const int INF = (int)(1e9);
 class Solution {
 public:
     int minCameraCover(TreeNode* root) {
-        auto dfs = [](auto dfs, TreeNode* node) -> tuple<int, int, int> {
-            if (node == nullptr) return make_tuple(0, 0, INF);
-            auto lval = dfs(dfs, node->left), rval = dfs(dfs, node->right);
-            return make_tuple(get<1>(lval) + get<1>(rval), 
-                min(get<2>(lval)+min(get<1>(rval),get<2>(rval)), get<2>(rval)+min(get<1>(lval),get<2>(lval))), 
-                1 + min({ get<0>(lval), get<1>(lval), get<2>(lval) }) + min({ get<0>(rval), get<1>(rval), get<2>(rval) }));
+        function<tuple<int,int,int>(TreeNode*)> dfs = [&](TreeNode* vnode) {
+            if (vnode == nullptr) return make_tuple(0, 0, INF);
+            auto lt = dfs(vnode->left), rt = dfs(vnode->right);
+            int ml = min(get<1>(lt), get<2>(lt)), mr = min(get<1>(rt), get<2>(rt));
+            int d0 = get<1>(lt) + get<1>(rt);
+            int d1 = min(get<2>(lt) + mr, ml + get<2>(rt));
+            int d2 = 1 + min(get<0>(lt), ml) + min(get<0>(rt), mr);
+            return make_tuple(d0, d1, d2);
         };
-        auto rtup = dfs(dfs, root);
-        return min(get<1>(rtup), get<2>(rtup));
+        auto tdp = dfs(root);
+        return min(get<1>(tdp), get<2>(tdp));
     }
 };

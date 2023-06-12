@@ -16,29 +16,27 @@ struct TreeNode {
 class Solution {
 public:
     int minCameraCover(TreeNode* root) {
-        unordered_set<TreeNode*> seen;
-        int res = 0;
-        auto dfs = [&](auto dfs, TreeNode* node, TreeNode* pnode=nullptr) -> void {
-            if (node == nullptr) return;
-            dfs(dfs, node->left, node);
-            dfs(dfs, node->right, node);
-            bool cam = false;
-            if (node->left!=nullptr && seen.find(node->left)==seen.end()) {
-                seen.insert(node->left);
-                cam = true;
+        unordered_map<TreeNode*, int> memo;
+        function<void(TreeNode*)> dfs = [&](TreeNode* vnode) {
+            if (vnode->left == nullptr && vnode->right == nullptr) memo[vnode] = 0;
+            bool zero = false, one = false;
+            if (vnode->left != nullptr) {
+                dfs(vnode->left);
+                if (memo[vnode->left] == 0) zero = true;
+                if (memo[vnode->left] == 1) one = true;
             }
-            if (node->right!=nullptr && seen.find(node->right)==seen.end()) {
-                seen.insert(node->right);
-                cam = true;
+            if (vnode->right != nullptr) {
+                dfs(vnode->right);
+                if (memo[vnode->right] == 0) zero = true;
+                if (memo[vnode->right] == 1) one = true;
             }
-            if (cam) {
-                ++res;
-                seen.insert(node);
-                if (pnode != nullptr) seen.insert(pnode);
-            }
+            if (zero) memo[vnode] = 1;
+            else if (one) memo[vnode] = 2;
+            else memo[vnode] = (vnode == root ? 1 : 0);
         };
-        dfs(dfs, root);
-        if (seen.find(root) == seen.end()) ++res;
+        dfs(root);
+        int res = 0;
+        for (const auto& pi : memo) if (pi.second == 1) ++res;
         return res;
     }
 };
