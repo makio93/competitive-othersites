@@ -1,0 +1,38 @@
+// 本番AC
+
+#include <bits/stdc++.h>
+using namespace std;
+
+using ll = long long;
+
+#define rep(i, n) for (int i=0; i<(int)(n); ++(i))
+#define rep3(i, m, n) for (int i=(m); (i)<(int)(n); ++(i))
+#define repr(i, n) for (int i=(int)(n)-1; (i)>=0; --(i))
+#define rep3r(i, m, n) for (int i=(int)(n)-1; (i)>=(int)(m); --(i))
+#define all(x) (x).begin(), (x).end()
+
+const int INF = (int)(1e9);
+
+int main() {
+	ios::sync_with_stdio(false);
+	cin.tie(nullptr);
+	int t0;
+	cin >> t0;
+	rep(i0, t0) {
+		int n;
+		cin >> n;
+		vector<int> a(n);
+		rep(i, n) cin >> a[i];
+		vector<int> s(n+1);
+		rep(i, n) s[i+1] = s[i] ^ a[i];
+		int res = 0;
+		vector<bool> exists(1<<8);
+		exists[0] = true;
+		rep3(i, 1, n+1) {
+			rep(j, 1<<8) if (exists[j]) res = max(res, j^s[i]);
+			exists[s[i]] = true;
+		}
+		cout << res << endl;
+	}
+	return 0;
+}
