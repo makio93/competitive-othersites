@@ -1,4 +1,4 @@
-// 自力AC(ヒント有)
+// 解説AC
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -9,15 +9,17 @@ public:
     int maxValue(vector<vector<int>>& events, int k) {
         int n = events.size();
         sort(events.begin(), events.end(), [](auto ai, auto bi) -> bool { return ai[1] < bi[1]; });
+        unordered_map<int, int> memo;
         function<int(int)> binary_search = [&](int target) {
-            if (target <= events[0][1]) return -1;
+            if (memo.find(target) != memo.end()) return memo[target];
+            if (target <= events[0][1]) return memo[target] = -1;
             int li = 0, ri = n;
             while (ri-li > 1) {
                 int ci = li + (ri-li) / 2;
                 if (events[ci][1] < target) li = ci;
                 else ri = ci;
             }
-            return li;
+            return memo[target] = li;
         };
         vector<vector<int>> dp(n+1, vector<int>(k+1, -INF));
         dp[0].assign(k+1, 0);
